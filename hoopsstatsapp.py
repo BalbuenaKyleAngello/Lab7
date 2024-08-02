@@ -8,7 +8,6 @@ from hoopstatsview import HoopStatsView
 import pandas as pd
 
 def cleanStats(df):
-    # Define a helper function to split the makes-attempts string
     def split_makes_attempts(col):
         makes = []
         attempts = []
@@ -18,12 +17,12 @@ def cleanStats(df):
             attempts.append(int(attempt))
         return makes, attempts
 
-    # Create new columns for FG, 3PT, and FT
+
     fg_makes, fg_attempts = split_makes_attempts('FG')
     threept_makes, threept_attempts = split_makes_attempts('3PT')
     ft_makes, ft_attempts = split_makes_attempts('FT')
 
-    # Insert new columns into the DataFrame
+   
     df.insert(df.columns.get_loc('FG') + 1, 'FGM', fg_makes)
     df.insert(df.columns.get_loc('FGM') + 1, 'FGA', fg_attempts)
     df.insert(df.columns.get_loc('3PT') + 1, '3PTM', threept_makes)
@@ -31,7 +30,7 @@ def cleanStats(df):
     df.insert(df.columns.get_loc('FT') + 1, 'FTM', ft_makes)
     df.insert(df.columns.get_loc('FTM') + 1, 'FTA', ft_attempts)
 
-    # Drop the original FG, 3PT, and FT columns
+    
     df.drop(columns=['FG', '3PT', 'FT'], inplace=True)
 
     return df
